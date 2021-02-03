@@ -1,0 +1,92 @@
+## Abaixo descrevemos um service dentro do Backstage Permissions:
+## Um service é um conjunto de actions, restrictions e roleTemplates que possibilitam o permissionamento de um conjunto de tarefas no Backstage.
+## Documentação: http://docs.backstage.globoi.com/permissions/conceito-da-solucao/service/
+
+id: bs.apis.api.esportes-minha-lista-de-musicas
+name: minha lista de musicas
+description: minha lista de musicas
+owners:
+  - group:devEsportes
+
+## Uma action representa uma tarefa que pode ser realizada em determinado serviço e que deve ser permissionada.
+## Documentação: http://docs.backstage.globoi.com/permissions/conceito-da-solucao/action
+actions:
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.read
+    description: Ler minha lista de musicas
+    restrictions:
+      - tenant-restriction
+
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.create
+    description: Criar minha lista de musicas
+    restrictions:
+      - tenant-restriction
+
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.update
+    description: Atualizar minha lista de musicas
+    restrictions:
+      - tenant-restriction
+
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.delete
+    description: Remover minha lista de musicas
+    restrictions:
+      - tenant-restriction
+
+## Uma roleTemplate é um agrupamento de actions, que representa um determinado contexto de uso de um Serviço.
+## Cada roleTemplate será ofertada para o atendimento gerenciar o acesso da plataforma.
+## Documentação: http://docs.backstage.globoi.com/permissions/conceito-da-solucao/role-template/
+roleTemplates:
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.admin
+    name: Administrador de minha lista de musicas
+    description: Administrador de minha lista de musicas
+    actions:
+      ## Integração com o Menu
+      ## Item menu é a caixinha que irá aparecer no ADMIM(CMA), após a aplicação do permissionamento.
+      ## se precisar cadastrar um menu no formato atual leia sobre os itens de menu:
+      ## http://docs.backstage.globoi.com/admin-v2/criando-item-menu/ e registre a permissão de menu abaixo
+
+      - bs.apis.api.esportes-minha-lista-de-musicas.read
+      - bs.apis.api.esportes-minha-lista-de-musicas.create
+      - bs.apis.api.esportes-minha-lista-de-musicas.update
+      - bs.apis.api.esportes-minha-lista-de-musicas.delete
+
+    restrictions:
+      - tenant-restriction
+
+  - id: bs.apis.api.esportes-minha-lista-de-musicas.reader
+    name: Leitor de minha lista de musicas
+    description: Leitor de minha lista de musicas
+    actions:
+      ## Integração com o Menu
+      ## Item menu é a caixinha que irá aparecer no ADMIM(CMA), após a aplicação do permissionamento.
+      ## se precisar cadastrar um menu no formato atual leia sobre os itens de menu:
+      ## http://docs.backstage.globoi.com/admin-v2/criando-item-menu/ e registre a permissão de menu abaixo
+
+      - bs.apis.api.esportes-minha-lista-de-musicas.read
+
+    restrictions:
+      - tenant-restriction
+
+## Restriction são formas de restringir as ações em um determinado serviço.
+## Documentação: http://docs.backstage.globoi.com/permissions/conceito-da-solucao/restriction
+restrictions:
+  - id: tenant-restriction
+    attributes:
+      - attribute: tenantId
+        label: Tenant
+        component: tenantInput
+
+## Roles são associadas a um usuário, grupo ou aplicação para fornecer acesso a determinadas tarefas dentro de um serviço.
+## Documentação: http://docs.backstage.globoi.com/permissions/conceito-da-solucao/role/
+roles:
+  - name: desenvolvedor-esportes-minha-lista-de-musicas
+    roleTemplate: bs.apis.api.esportes-minha-lista-de-musicas.admin
+    restrictions:
+      - tenantId: '*'
+    subjects:
+      - group:devEsportes
+
+  - name: leitor-esportes-minha-lista-de-musicas
+    roleTemplate: bs.apis.api.esportes-minha-lista-de-musicas.reader
+    restrictions:
+      - tenantId: '*'
+    subjects: []

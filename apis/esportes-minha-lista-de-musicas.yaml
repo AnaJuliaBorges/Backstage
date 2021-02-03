@@ -1,0 +1,102 @@
+# Versão do Backstage APIs usada
+version: 2
+$schema: http://json-schema.org/draft-03/hyper-schema#
+type: object
+collectionName: esportes-minha-lista-de-musicas
+collectionTitle: esportes-minha-lista-de-musicas
+title: esportes-minha-lista-de-musicas
+
+# Abaixo, na chave 'properties' você deve definir os atributos dos seus objetos
+# de acordo com a especificação JSON Schema
+#
+# IMPORTANTE: não adicione os seguintes atributos que são de uso do próprio APIs
+# - id
+# - created
+# - modified
+# - createdBy
+# - versionId
+# - tenantId
+#
+# Se você sobrescrever estes atributos, irá causar falhas
+# no funcionamento da API, potencialmente impossibilitando
+# completamente o seu uso.
+#
+# Vide:
+# https://docs.backstage.globoi.com/apis/creating-a-new-api-provision/
+# https://docs.backstage.globoi.com/apis/api-configuration/default-attributes/
+properties:
+  # titulo:
+  #   title: titulo
+  #   type: string
+  #   required: true
+  #   description: 'Titulo'
+  # artista:
+  #   title: artista
+  #   type: string
+  #   required: true
+  #   description: 'Nome'
+  # nota:
+  #   title: nota
+  #   type: int
+  #   required: true
+  #   description: 'Nota'
+
+# Por padrão desabilitamos a contagem de objetos nas respostas do APIs pois
+# isso onera o banco, para habilitar mude o valor abaixo para `false`
+countDisabled: true
+
+
+# --- Functions ---
+# Para adicionar lógicas de negócio validação e transformação nos objetos é
+# possível usar a integração com o Functions seguindo o exemplo abaixo.
+# http://docs.backstage.globoi.com/apis/business-logic/overview/
+
+# functions:
+#   async:
+#     - name: esportes/esportes-minha-lista-de-musicas-aftersave
+#       event: afterSave
+#     - name: esportes/esportes-minha-lista-de-musicas-afterdelete
+#       event: afterDelete
+#   sync:
+#     - name: esportes/esportes-minha-lista-de-musicas-beforesave
+#       event: beforeSave
+#     - name: esportes/esportes-minha-lista-de-musicas-beforedelete
+#       event: beforeDelete
+
+
+# --- Integrações ---
+# Descomente as próximas linhas para habilitar integração com o elasticsearch,
+# assim todos objetos salvos após habilitar serão indexados no ES
+# http://docs.backstage.globoi.com/apis/integrations/search/
+
+# integrations:
+#   es: true
+
+
+# --- ÍNDICES ---
+# Se você ira realizar consultas ou filtros por campos específicos de sua API
+# é recomendado criar índices do mongodb
+#
+# http://docs.backstage.globoi.com/apis/api-configuration/indexes/
+#
+# IMPORTANTE: nunca adicione índices sobre o campo `id`. Este é um campo de uso reservado do APIs.
+# Embora você possa atribuir um valor para o `id` durante a criação de um item (garantindo unicidade),
+# você não deve usar este campo para nada além de recuperar documentos pelo `id`, ou em queries simples (igualdade).
+# Caso você precise de um campo semelhante a `id` mas com regras de indexação diferentes,
+# crie um novo campo (e.g.: `identifier`) e replique o valor do `id` nele. Crie seus índices
+# então sobre este campo. Isto é necessário devido a uma limitação de uso do `id`, que é
+# um campo reservado pelo APIs.
+#
+# `orderedKeys` versus `keys`: o atributo `keys`, é legado, e para alguns tipos de índices compostos, a ordem
+# das chaves não era mantida devido ao fato de que o dictionary/hashmap usado como estrutura de dados é muito
+# frágil para manter a informação de ordenamento. Por isso, foi adicionado um novo atributo chamado `orderedKeys`,
+# que usa uma sintaxe de lista, e por este motivo é mais robusto com relação ao ordenamento das chaves. `keys` ainda
+# é suportado por compatibilidade, mas para novas APIs prefira usar a nova forma para evitar bugs na criação dos seus índices.
+# Mais informações na documentação: http://docs.backstage.globoi.com/apis/api-configuration/indexes/
+
+# indexes:
+#   name_index:
+#     orderedKeys:
+#       - name: 1
+#     options:
+#       background: 1

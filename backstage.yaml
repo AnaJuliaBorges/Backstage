@@ -1,0 +1,26 @@
+name: minha lista de musicas
+slug: minha-lista-de-musicas
+namespace: esportes
+services:
+  admin:
+  - slug: esportes-minha-lista-de-musicas
+    path: admin/esportes-minha-lista-de-musicas
+    version: 0.0.1
+    hooks:
+      predeploy:
+      - cmd: make
+        args:
+        - -C
+        - admin/esportes-minha-lista-de-musicas
+        - build
+  apis:
+  - slug: esportes-minha-lista-de-musicas
+    path: apis/esportes-minha-lista-de-musicas.yaml
+    version: 0.0.1
+  permissions:
+  - slug: esportes-minha-lista-de-musicas
+    path: permissions/esportes-minha-lista-de-musicas.yaml
+    version: 0.0.1
+components: {}
+metadata: {}
+apiVersion: project.provision.backstage/v1beta1

@@ -1,0 +1,48 @@
+{
+  "name": "esportes-minha-lista-de-musicas",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "backstage-admin": "^1.0.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "backstage-admin-react-scripts": "^1.0.3",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.2",
+    "react-admin-json-schema": "^1.0.6"
+  },
+  "scripts": {
+    "start": "backstage-admin-react-scripts start",
+    "build": "backstage-admin-react-scripts build",
+    "test": "backstage-admin-react-scripts test --env=jsdom",
+    "coverage": "backstage-admin-react-scripts test --env=jsdom --coverage --no-cache",
+    "eject": "backstage-admin-react-scripts eject",
+    "precommit": "lint-staged",
+    "lint": "prettier --write --no-semi --trailing-comma es5 '{src,demo,config}/**/*.js'"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": false,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "semi": false
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "prettier --write --no-semi --trailing-comma es5",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "**/dist/**/*.js"
+    ]
+  }
+}
